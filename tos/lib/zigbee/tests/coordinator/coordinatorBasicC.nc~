@@ -197,7 +197,7 @@ implementation
 	{
 		uint8_t packetCode = Nsdu[0];
 		uint8_t letter1 = Nsdu[1];
-		//if(letter1 == 'H'){ call Leds.led0Toggle(); };
+		if(letter1 == 'H'){ call Leds.led0Toggle(); };
 		// TDBS mechanism
 		beacon_scheduling *beacon_scheduling_ptr;
 

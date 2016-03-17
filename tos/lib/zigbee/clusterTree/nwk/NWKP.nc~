@@ -613,7 +613,8 @@ lclPrintf_NWK("resetyouupie\n","");
 				// Try association after "randomAssociation" beacons
 				randomAssociation = OFFSET_BCN_COUNTER + ((call Random.rand16()) % MAX_RANDOM_BCN_COUNTER);
 
-				call Leds.led1On();
+				call Leds.led0On();
+				lclPrintf_NWK("MLME_SCAN.confirm\n", "");
 
 				associationStatus = IM_ASSOCIATING;
 			#if (LOG_LEVEL & DBG_CUSTOM)

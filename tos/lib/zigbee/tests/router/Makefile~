@@ -1,5 +1,5 @@
-COMPONENT=end_deviceBasicAppC
-PLATFORMS = z1
+COMPONENT=routerBasicAppC
+PLATFORMS = telosb
 
 ZIGBEE=$(TOSDIR)/lib/zigbee/clusterTree
 
@@ -11,7 +11,7 @@ PFLAGS += 	-I$(ZIGBEE)/includes	\
 			-I$(ZIGBEE)/nwk
 
 
-PFLAGS += -DIM_END_DEVICE -DIEEE154_BEACON_TX_DISABLED
+PFLAGS += -DIM_ROUTER
 #PFLAGS += -DPRINTFUART_ENABLED
 
 ifdef DEF_MAC_PANID
@@ -66,3 +66,5 @@ include $(MAKERULES)
 # ... and then include the TKN15.4 "Makefile.include" file. That's all.
 # Hint: type "make <platform> verbose" to see the aggregate include path.
 include $(TOSDIR)/lib/mac/tkn154/Makefile.include
+
+

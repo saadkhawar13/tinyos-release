@@ -2,13 +2,14 @@
 # Script to compile and install software in a mote. Each mote can be a Coordinator, Router, End-device or Sniffer.
 # Usage ./pmote.sh <install type> <device type> <USB port number> <device address> [<depth> <address parent> <xPos> <yPos>]
 
-PLATFORM=z1
+PLATFORM=telosb
 
 ZIGBEE_PATH=$TOSDIR/lib/zigbee/clusterTree
 echo $ZIGBEE_PATH
 
 APP_TEST_PATH=$TOSDIR/lib/zigbee/tests
 echo $APP_TEST_PATH
+echo $PLATFORM
 
 PROG_DEV=bsl
 

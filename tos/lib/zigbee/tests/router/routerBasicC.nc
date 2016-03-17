@@ -5,16 +5,11 @@
  */
 
 #include <Timer.h>
-#include "printfUART.h"
+#include "printfZ1.h"
 #include "log_enable.h"
 
-#ifdef APP_PRINTFS_ENABLED
-	#define lclPrintf				printfUART
-	#define lclprintfUART_init		printfUART_init
-#else
-	#define lclPrintf(__format, __args...)
-	void lclprintfUART_init() {}
-#endif
+#define lclPrintf			printfz1
+#define lclprintfUART_init		printfz1_init
 
 module routerBasicC 
 {
@@ -108,9 +103,7 @@ implementation
 
 	event error_t NLDE_DATA.confirm(uint8_t NsduHandle, uint8_t Status)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLDE_DATA.confirm\n", "");
-	#endif
 		call Leds.led1Toggle();
 		return SUCCESS;
 	}
@@ -122,9 +115,7 @@ implementation
 		uint8_t packetCode = Nsdu[0];
 		// TDBS mechanism
 		beacon_scheduling *beacon_scheduling_ptr;
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLDE_DATA.indication\n", "");
-	#endif
 		
 		// The packet is for me (check has been done into MCPS_DATA.indication in NWKP.nc)
 		// TDBS mechanism  
@@ -169,35 +160,27 @@ implementation
 	// directly to the parent and issuing a JOIN confirm, instead
 	event error_t NLME_NETWORK_DISCOVERY.confirm(uint8_t NetworkCount,networkdescriptor networkdescriptorlist[], uint8_t Status)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_NETWORK_DISCOVERY.confirm\n", ""); 
-	#endif
 		return SUCCESS;
 	}
 
 	/*****************NLME_START_ROUTER*****************************/
 	event error_t NLME_START_ROUTER.confirm(uint8_t Status)
 	{ 
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_START_ROUTER.confirm\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	/*************************NLME_JOIN*****************************/
 	event error_t NLME_JOIN.indication(uint16_t ShortAddress, uint32_t ExtendedAddress[], uint8_t CapabilityInformation, bool SecureJoin)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_JOIN.indication\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	event error_t NLME_JOIN.confirm(uint16_t PANId, uint8_t Status, uint16_t parentAddress)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_JOIN.confirm\n", "");
-	#endif
 		switch(Status)
 		{
 		case NWK_SUCCESS:
@@ -241,26 +224,20 @@ implementation
 	/*************************NLME_LEAVE****************************/
 	event error_t NLME_LEAVE.indication(uint64_t DeviceAddress)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_LEAVE.indication\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	event error_t NLME_LEAVE.confirm(uint64_t DeviceAddress, uint8_t Status)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_LEAVE.confirm\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	/*************************NLME_SYNC*****************************/
 	event error_t NLME_SYNC.indication()
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_SYNC.indication\n", "");
-	#endif
 		// We lost connection with our parent. Automatic rescan is done
 		// at the NWK layer
 
@@ -274,36 +251,27 @@ implementation
 
 	event error_t NLME_SYNC.confirm(uint8_t Status)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_SYNC.confirm\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	/*****************        NLME-SET     ********************/
 	event error_t NLME_SET.confirm(uint8_t Status, uint8_t NIBAttribute)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_SET.confirm\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	/*****************        NLME-GET     ********************/
 	event error_t NLME_GET.confirm(uint8_t Status, uint8_t NIBAttribute, uint16_t NIBAttributeLength, uint16_t NIBAttributeValue)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_GET.confirm\n", "");
-	#endif
 		return SUCCESS;
 	}
 
 	event error_t NLME_RESET.confirm(uint8_t status)
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("NLME_RESET.confirm\n", "");
-	#endif
-
 		call T_init.startOneShot(5000);
 		return SUCCESS;
 	}
@@ -316,10 +284,7 @@ implementation
 	/*******************T_init**************************/
 	event void T_init.fired() 
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("I'm NOT the coordinator\n", "");
-	#endif
-
 		call NLME_NETWORK_DISCOVERY.request(LOGICAL_CHANNEL, BEACON_ORDER);
 		return;
 	}
@@ -328,10 +293,7 @@ implementation
 	/*******************NetAssociationDeferredTimer**************************/
 	event void NetAssociationDeferredTimer.fired()
 	{
-	#if (LOG_LEVEL & TRACE_FUNC)
 		lclPrintf("go join as router\n", ""); 
-	#endif
-
 		call NLME_JOIN.request(MAC_PANID, TRUE, FALSE, 0, 0, 0, 0, 0);
 	}
 
