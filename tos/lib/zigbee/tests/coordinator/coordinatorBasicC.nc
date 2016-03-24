@@ -197,11 +197,14 @@ implementation
 	{
 		uint8_t packetCode = Nsdu[0];
 		uint8_t letter1 = Nsdu[1];
-		//if(letter1 == 'H'){ call Leds.led0Toggle(); };
 		// TDBS mechanism
 		beacon_scheduling *beacon_scheduling_ptr;
 
 		lclPrintf("NLDE_DATA.indication\n", "");
+		if (Nsdu[1] == 'H' && Nsdu[2] == 'e' && Nsdu[3] == 'l' && Nsdu[4] == 'l' && Nsdu[5] == 'o') 
+		{ 
+			call Leds.led0Toggle(); 
+		}
 		
 		// The packet is for me (check has been done into MCPS_DATA.indication)
 

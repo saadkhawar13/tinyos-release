@@ -19,11 +19,11 @@ configuration coordinatorBasicAppC {
 implementation
 {
 	components MainC;
-//	components LedsC;
+	components LedsC;
 	components coordinatorBasicC as App;
 
 	App.Boot -> MainC;
-//	App.Leds -> LedsC;
+	App.Leds -> LedsC;
 	
 	components new TimerMilliC() as T_init;
 	App.T_init -> T_init;

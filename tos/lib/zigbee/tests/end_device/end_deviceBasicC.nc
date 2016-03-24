@@ -66,8 +66,9 @@ implementation
 
 		// Send the message towards the coordinator 
 		// (default network address: 0x0000)
+		call Leds.led0Toggle();
 		call NLDE_DATA.request(0x0000, 6, nsdu_pay, 0, 1, 0x00, 0);
-		call Leds.led0On();
+		call Leds.led0Toggle();
 	}
   
 	// This function initializes the variables.
