@@ -73,7 +73,7 @@
 
 // Comment out the line below to DISABLE printf statements. 
 // This should be handled at the application Makefile
-#define PRINTFUART_ENABLED
+//#define PRINTFUART_ENABLED
 
 // STE
 // found: http://mansos.net/svn/mansos/mos/hpl/chips/msp430/msp430_timers.h

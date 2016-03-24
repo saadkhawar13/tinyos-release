@@ -1,5 +1,5 @@
 COMPONENT=coordinatorBasicAppC
-PLATFORMS = telosb
+PLATFORMS = z1
 
 ZIGBEE=$(TOSDIR)/lib/zigbee/clusterTree
 

@@ -1,5 +1,5 @@
 COMPONENT=end_deviceBasicAppC
-PLATFORMS = z1
+PLATFORMS = telosb
 
 ZIGBEE=$(TOSDIR)/lib/zigbee/clusterTree
 
