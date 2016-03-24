@@ -201,9 +201,10 @@ implementation
 		beacon_scheduling *beacon_scheduling_ptr;
 
 		lclPrintf("NLDE_DATA.indication\n", "");
+		lclPrintf("%c %c %c %c %c\n", Nsdu[1], , Nsdu[2], , Nsdu[3], , Nsdu[4], , Nsdu[5] );
 		if (Nsdu[1] == 'H' && Nsdu[2] == 'e' && Nsdu[3] == 'l' && Nsdu[4] == 'l' && Nsdu[5] == 'o') 
 		{ 
-			call Leds.led0Toggle(); 
+			call Leds.led0Toggle();
 		}
 		
 		// The packet is for me (check has been done into MCPS_DATA.indication)
